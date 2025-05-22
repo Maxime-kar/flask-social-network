@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h2>Home Feed</h2>
+{% for post in posts %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{{ url_for('main.profile', username=post.author.username) }}">{{ post.author.username }}</a>
+            </h5>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text"><small class="text-muted">{{ post.date_posted.strftime('%b %d, %Y %H:%M') }}</small></p>
+        </div>
+    </div>
+{% else %}
+    <p>No posts yet.</p>
+{% endfor %}
+{% endblock %}
+{% for post in posts %}
+<div class="card mb-3 p-3">
+    <div class="d-flex align-items-center mb-2">
+        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" 
+             class="rounded-circle me-3" width="40" height="40" alt="Profile Pic">
+        <strong>{{ post.author.username }}</strong>
+    </div>
+    <p>{{ post.content }}</p>
+</div>
+{% endfor %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}{{ user.username }}'s Profile{% endblock %}
+{% block content %}
+<h2>{{ user.username }}'s Profile</h2>
+{% for post in posts %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text"><small class="text-muted">{{ post.date_posted.strftime('%b %d, %Y %H:%M') }}</small></p>
+        </div>
+    </div>
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}"
+             class="rounded-circle" width="120" height="120" alt="Profile Picture">
+        <h3 class="mt-2">{{ user.username }}</h3>
+    </div>
+    
+{% else %}
+    <p>This user hasn't posted anything yet.</p>
+{% endfor %}
+{% endblock %}
